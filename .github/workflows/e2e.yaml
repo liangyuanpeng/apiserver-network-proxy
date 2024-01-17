@@ -155,6 +155,8 @@ jobs:
         /usr/local/bin/kubectl get pods -A
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pod/test
         /usr/local/bin/kubectl get pods -A
+        docker ps 
+        cat ~/.kube/config
         /usr/local/bin/kubectl logs test
 
     - name: Workaround CoreDNS for IPv6 airgapped
