@@ -95,6 +95,7 @@ jobs:
         mkdir -p _artifacts
         # create cluster
         sed -i  's/IP_FAMILY/'${IP_FAMILY}'/g' examples/kind/kind.config
+        sed -i  's#EGREE_SELECTOR_CONFIGURATION_PATH#./examples/kind/egress_selector_configuration.yaml#g' examples/kind/kind.config
         cat examples/kind/kind.config
         echo "==================================================================="
         /usr/local/bin/kind create cluster \
