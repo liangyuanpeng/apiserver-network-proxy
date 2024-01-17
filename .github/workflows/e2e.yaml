@@ -80,7 +80,7 @@ jobs:
         # kubectl
         curl -L https://dl.k8s.io/${{ env.K8S_VERSION }}/bin/linux/amd64/kubectl -o ${TMP_DIR}/kubectl
         # kind
-        curl -Lo ${TMP_DIR}/kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
+        curl -Lo ${TMP_DIR}/kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
         # Install
         sudo cp ${TMP_DIR}/ginkgo /usr/local/bin/ginkgo
         sudo cp ${TMP_DIR}/e2e.test /usr/local/bin/e2e.test
