@@ -102,6 +102,8 @@ jobs:
         networking:
           ipFamily: ${IP_FAMILY}
         nodes:
+          - role: worker
+          - role: worker
           - role: control-plane
             kubeadmConfigPatches:
             - |
