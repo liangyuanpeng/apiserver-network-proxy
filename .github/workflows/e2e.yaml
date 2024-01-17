@@ -2,8 +2,8 @@ name: e2e
 
 on:
   push:
-    branches:
-      - 'master'
+    # branches:
+    #   - 'master'
     tags:
       - 'v*'
   pull_request:
@@ -36,14 +36,14 @@ jobs:
         docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master -f artifacts/images/agent-build.Dockerfile .
         docker save gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master > _output/konnectivity-agent.tar
         docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-server:master -f artifacts/images/server-build.Dockerfile .
-        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  > _output/konnectivity-server.tar
+        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  _output/konnectivity-server.tar
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: konnectivity-server
         path: _output/konnectivity-server.tar
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: konnectivity-agent
         path: _output/konnectivity-agent.tar
@@ -125,11 +125,11 @@ jobs:
         # dump the kubeconfig for later
         /usr/local/bin/kind get kubeconfig --name ${{ env.KIND_CLUSTER_NAME}} > _artifacts/kubeconfig.conf
 
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: konnectivity-server
 
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v3
       with:
         name: konnectivity-agent
 
@@ -202,7 +202,7 @@ jobs:
 
     - name: Upload Junit Reports
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: kind-junit-${{ env.JOB_NAME }}-${{ github.run_id }}
         path: './_artifacts/*.xml'
@@ -214,7 +214,7 @@ jobs:
 
     - name: Upload logs
       if: always()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: kind-logs-${{ env.JOB_NAME }}-${{ github.run_id }}
         path: ./_artifacts/logs
