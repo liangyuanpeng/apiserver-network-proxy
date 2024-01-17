@@ -152,6 +152,7 @@ jobs:
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=kube-dns
         # smoke test
         /usr/local/bin/kubectl run test --image httpd:2
+        /usr/local/bin/kubectl get pods -A
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods test
         /usr/local/bin/kubectl logs test
 
