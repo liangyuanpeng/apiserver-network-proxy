@@ -153,7 +153,7 @@ jobs:
         # smoke test
         /usr/local/bin/kubectl run test --image httpd:2
         /usr/local/bin/kubectl get pods -A
-        /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods test
+        /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pod/test
         /usr/local/bin/kubectl get pods -A
         /usr/local/bin/kubectl logs test
 
