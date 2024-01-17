@@ -159,6 +159,8 @@ jobs:
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pod/test
         /usr/local/bin/kubectl get pods -A -owide
         docker ps 
+        docker exec kind-control-plane -- crictl ps -a
+        docker exec kind-control-plane -- ls /etc/kubernetes/konnectivity-server/
         /usr/local/bin/kubectl logs test
 
     - name: Workaround CoreDNS for IPv6 airgapped
