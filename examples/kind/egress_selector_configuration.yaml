@@ -3,11 +3,11 @@ kind: EgressSelectorConfiguration
 egressSelections:
 - name: cluster
   connection:
-    proxyProtocol: Direct
-    # proxyProtocol: GRPC
-    # transport:
-    #   uds:
-    #     udsName: /etc/kubernetes/konnectivity-server/konnectivity-server.socket
+    # proxyProtocol: Direct
+    proxyProtocol: GRPC
+    transport:
+      uds:
+        udsName: /etc/kubernetes/konnectivity-server/konnectivity-server.socket
 - name: master
   connection:
     proxyProtocol: Direct
