@@ -95,6 +95,8 @@ jobs:
         mkdir -p _artifacts
         # create cluster
         sed -i  's/IP_FAMILY/'${IP_FAMILY}'/g' examples/kind/kind.config
+        cat examples/kind/kind.config
+        echo "==================================================================="
         /usr/local/bin/kind create cluster \
           --name ${{ env.KIND_CLUSTER_NAME}}           \
           --image kindest/node:${{ env.K8S_VERSION }}  \
