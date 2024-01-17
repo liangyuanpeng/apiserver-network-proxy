@@ -49,3 +49,6 @@ $ kubectl exec -it test bash
 kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 ```
 
+
+# IP_FAMILY ipv4
+# ./egress_selector_configuration.yaml
