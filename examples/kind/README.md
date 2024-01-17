@@ -4,6 +4,10 @@
 Change to the `examples/kind` folder and create a `kind` cluster with the `kind.config` file
 
 ```sh
+$ sed -i  's/IP_FAMILY/ipv4/g' kind.config
+
+$ sed -i  's#EGREE_SELECTOR_CONFIGURATION_PATH#./egress_selector_configuration.yaml#g' kind.config
+ 
 $ kind create cluster --config kind.config
 Creating cluster "kind" ...
 DEBUG: docker/images.go:58] Image: kindest/node:v1.27.3@sha256:3966ac761ae0136263ffdb6cfd4db23ef8a83cba8a463690e98317add2c9ba72 present locally

@@ -36,7 +36,7 @@ jobs:
         docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master -f artifacts/images/agent-build.Dockerfile .
         docker save gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master > _output/konnectivity-agent.tar
         docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-server:master -f artifacts/images/server-build.Dockerfile .
-        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  > _output/konnectivity-server.tar
+        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  _output/konnectivity-server.tar
 
     - uses: actions/upload-artifact@v2
       with:
@@ -80,7 +80,7 @@ jobs:
         # kubectl
         curl -L https://dl.k8s.io/${{ env.K8S_VERSION }}/bin/linux/amd64/kubectl -o ${TMP_DIR}/kubectl
         # kind
-        curl -Lo ${TMP_DIR}/kind https://kind.sigs.k8s.io/dl/v0.17.0/kind-linux-amd64
+        curl -Lo ${TMP_DIR}/kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
         # Install
         sudo cp ${TMP_DIR}/ginkgo /usr/local/bin/ginkgo
         sudo cp ${TMP_DIR}/e2e.test /usr/local/bin/e2e.test
@@ -93,35 +93,12 @@ jobs:
         # output_dir
         mkdir -p _artifacts
         # create cluster
-        cat <<EOF | /usr/local/bin/kind create cluster \
+        sed -i  's/IP_FAMILY/'${IP_FAMILY}'/g' examples/kind/kind.config
+        sed -i  's#EGREE_SELECTOR_CONFIGURATION_PATH#./examples/kind/egress_selector_configuration.yaml#g' examples/kind/kind.config
+        /usr/local/bin/kind create cluster \
           --name ${{ env.KIND_CLUSTER_NAME}}           \
           --image kindest/node:${{ env.K8S_VERSION }}  \
-          -v7 --wait 1m --retain --config=-
-        kind: Cluster
-        apiVersion: kind.x-k8s.io/v1alpha4
-        networking:
-          ipFamily: ${IP_FAMILY}
-        nodes:
-          - role: control-plane
-            kubeadmConfigPatches:
-            - |
-              kind: ClusterConfiguration
-              apiServer:
-                extraArgs:
-                  "egress-selector-config-file": "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                extraVolumes:
-                - name: egress-selector-config-file
-                  hostPath: "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                  mountPath: "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                  readOnly: true
-                - name: konnectivity-server
-                  hostPath: "/etc/kubernetes/konnectivity-server"
-                  mountPath: "/etc/kubernetes/konnectivity-server"
-                  readOnly: true
-            extraMounts:
-            - hostPath: ./examples/kind/egress_selector_configuration.yaml
-              containerPath: /etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml
-        EOF
+          -v7 --wait 1m --retain --config=examples/kind/kind.config
         # dump the kubeconfig for later
         /usr/local/bin/kind get kubeconfig --name ${{ env.KIND_CLUSTER_NAME}} > _artifacts/kubeconfig.conf
 
