@@ -106,6 +106,12 @@ jobs:
           - role: worker
           - role: worker
           - role: control-plane
+            kubeadmConfigPatchesJSON6902:
+            - kind: ClusterConfiguration
+              patch: |
+                - op: add
+                  path: /apiServer/certSANs/-
+                  value: konnectivity-server.kube-system.svc.cluster.local
             kubeadmConfigPatches:
             - |
               kind: ClusterConfiguration
