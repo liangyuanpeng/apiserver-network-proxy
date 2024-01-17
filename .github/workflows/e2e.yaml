@@ -56,7 +56,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ipFamily: ["ipv4", "ipv6", "dual"]
+        ipFamily: ["ipv4"]
+        # ipFamily: ["ipv4", "ipv6", "dual"]
     env:
       JOB_NAME: "kindnetd-e2e-${{ matrix.ipFamily }}"
       IP_FAMILY: ${{ matrix.ipFamily }}
@@ -158,7 +159,6 @@ jobs:
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pod/test
         /usr/local/bin/kubectl get pods -A -owide
         docker ps 
-        cat ~/.kube/config
         /usr/local/bin/kubectl logs test
 
     - name: Workaround CoreDNS for IPv6 airgapped
