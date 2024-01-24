@@ -123,11 +123,12 @@ jobs:
           - role: worker
           - role: worker
           EOF
-          
-         /usr/local/bin/kind create cluster \
-          --name ${{ env.KIND_CLUSTER_NAME}}           \
-          --image kindest/node:${{ env.K8S_VERSION }}  \
-                  -v7 --wait 1m --retain --config=config.yaml
+
+        cat config.yaml
+        /usr/local/bin/kind create cluster \
+        --name ${{ env.KIND_CLUSTER_NAME}}           \
+        --image kindest/node:${{ env.K8S_VERSION }}  \
+                -v7 --wait 1m --retain --config=config.yaml
 
     - uses: actions/download-artifact@v2
       with:
