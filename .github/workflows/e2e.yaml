@@ -94,7 +94,6 @@ jobs:
         mkdir -p _artifacts
         # create cluster
          cat <<EOF | /usr/local/bin/kind create cluster \
-        /usr/local/bin/kind create cluster \
           --name ${{ env.KIND_CLUSTER_NAME}}           \
           --image kindest/node:${{ env.K8S_VERSION }}  \
                   -v7 --wait 1m --retain --config=-
