@@ -122,7 +122,7 @@ jobs:
               containerPath: /etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml
           - role: worker
           - role: worker
-          EOF
+        EOF
 
         cat config.yaml
         /usr/local/bin/kind create cluster \
