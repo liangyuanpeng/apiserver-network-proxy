@@ -66,10 +66,10 @@ jobs:
 
         cat config.yaml
 
-        docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master -f artifacts/images/agent-build.Dockerfile .
-        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master > _output/konnectivity-agent.tar
-        docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-server:master -f artifacts/images/server-build.Dockerfile .
-        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  _output/konnectivity-server.tar
+        # docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master -f artifacts/images/agent-build.Dockerfile .
+        # docker save gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master > _output/konnectivity-agent.tar
+        # docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-server:master -f artifacts/images/server-build.Dockerfile .
+        # docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  _output/konnectivity-server.tar
 
     - uses: actions/upload-artifact@v2
       with:
