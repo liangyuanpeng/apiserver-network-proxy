@@ -29,47 +29,10 @@ jobs:
       run: |
         mkdir _output
 
-        cat << EOF > config.yaml
-        kind: Cluster
-        apiVersion: kind.x-k8s.io/v1alpha4
-        networking:
-          ipFamily: ${IP_FAMILY}
-        nodes:
-          - role: control-plane
-            kubeadmConfigPatchesJSON6902:
-            - kind: ClusterConfiguration
-              patch: |
-                - op: add
-                  path: /apiServer/certSANs/-
-                  value: konnectivity-server.kube-system.svc.cluster.local
-            kubeadmConfigPatches:
-            - |
-              kind: ClusterConfiguration
-              apiServer:
-                extraArgs:
-                  "egress-selector-config-file": "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                extraVolumes:
-                - name: egress-selector-config-file
-                  hostPath: "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                  mountPath: "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                  readOnly: true
-                - name: konnectivity-server
-                  hostPath: "/etc/kubernetes/konnectivity-server"
-                  mountPath: "/etc/kubernetes/konnectivity-server"
-                  readOnly: true
-            extraMounts:
-            - hostPath: ./examples/kind/egress_selector_configuration.yaml
-              containerPath: /etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml
-          - role: worker
-          - role: worker
-        EOF
-
-        cat config.yaml
-
-        # docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master -f artifacts/images/agent-build.Dockerfile .
-        # docker save gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master > _output/konnectivity-agent.tar
-        # docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-server:master -f artifacts/images/server-build.Dockerfile .
-        # docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  _output/konnectivity-server.tar
+        docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master -f artifacts/images/agent-build.Dockerfile .
+        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master > _output/konnectivity-agent.tar
+        docker build -t gcr.io/k8s-staging-kas-network-proxy/proxy-server:master -f artifacts/images/server-build.Dockerfile .
+        docker save gcr.io/k8s-staging-kas-network-proxy/proxy-server:master >  _output/konnectivity-server.tar
 
     - uses: actions/upload-artifact@v2
       with:
