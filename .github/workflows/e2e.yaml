@@ -165,7 +165,7 @@ jobs:
 
         kind load docker-image ghcr.io/liangyuanpeng/ubuntu:tools-v1
         kind load docker-image ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-server:master
-        kind load docker-image hcr.io/liangyuanpeng/apiserver-network-proxy/proxy-agent:master
+        kind load docker-image ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-agent:master
 
         kubectl apply -f examples/kind/konnectivity-server.yaml
         kubectl apply -f examples/kind/konnectivity-agent-ds.yaml
