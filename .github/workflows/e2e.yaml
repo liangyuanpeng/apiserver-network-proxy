@@ -181,9 +181,10 @@ jobs:
         /usr/local/bin/kubectl run test --image httpd:2
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods test
         /usr/local/bin/kubectl get pods -A -owide
-        sleep 50s
+        if [ ${{ matrix.ipFamily }} = "ipv4" ];then 
+          sleep 50s
+        fi
         /usr/local/bin/kubectl logs test
-        
 
     - name: Workaround CoreDNS for IPv6 airgapped
       if: ${{ matrix.ipFamily == 'ipv6' }}
