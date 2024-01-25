@@ -57,6 +57,7 @@ jobs:
       fail-fast: false
       matrix:
         ipFamily: ["ipv4", "ipv6", "dual"]
+        k8sversion: ["1","2","3","4","5"]
     env:
       JOB_NAME: "kindnetd-e2e-${{ matrix.ipFamily }}"
       IP_FAMILY: ${{ matrix.ipFamily }}
