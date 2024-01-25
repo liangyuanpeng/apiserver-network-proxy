@@ -55,7 +55,7 @@ spec:
       hostNetwork: true
       containers:
       - name: konnectivity-server-container
-        image: gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
+        image: ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-server:master
         resources:
           requests:
             cpu: 1m
