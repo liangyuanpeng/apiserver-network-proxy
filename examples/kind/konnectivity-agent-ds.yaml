@@ -74,7 +74,7 @@ spec:
             path: /healthz
           initialDelaySeconds: 15
           timeoutSeconds: 15
-        readiness:
+        readinessProbe:
           httpGet:
             scheme: HTTP
             port: 8093
