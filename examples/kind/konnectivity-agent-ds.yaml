@@ -79,11 +79,6 @@ spec:
             name: konnectivity-agent-token
       - name: busybox
         image: ghcr.io/liangyuanpeng/ubuntu:tools-v1
-        resources:
-          requests:
-            cpu: 50m
-          limits:
-            memory: 30Mi
         command: 
         - /bin/sh 
         - -c
