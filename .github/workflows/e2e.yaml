@@ -151,8 +151,8 @@ jobs:
       run: |
         # preload konnectivity images
         nohup docker pull ghcr.io/liangyuanpeng/ubuntu:tools-v1 &
-        nohup ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-server:master &
-        nohup ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-agent:master &
+        nohup docker pull ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-server:master &
+        nohup docker pull ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-agent:master &
         oras pull ghcr.io/liangyuanpeng/files:anptest
         docker load --input konnectivity-server.tar
         docker load --input konnectivity-agent.tar
