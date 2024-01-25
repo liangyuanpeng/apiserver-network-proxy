@@ -75,11 +75,12 @@ bin:
 
 test: deploy svc
 
+# kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
+# kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master
+
 deploy: 
 	kind delete cluster 
 	kind create cluster --config config.yaml -v7 --wait 1m --retain  --image kindest/node:v1.27.3
-	kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
-	kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master
 	kubectl apply -f examples/kind/konnectivity-server.yaml 
 	kubectl describe svc -n kube-system konnectivity-server
 	kubectl apply -f examples/kind/konnectivity-agent-ds.yaml 
@@ -89,7 +90,7 @@ deploy:
 	kubectl wait --timeout=1m --for=condition=ready pods test
 	kubectl get pods -A -owide
 	kubectl logs test
-	kubectl get svc -n kube-system konnectivity-server.kube-system.svc.cluster.local -oyaml
+	kubectl get svc -n kube-system konnectivity-server -oyaml
 
 svc:
 	kubectl get svc -A
