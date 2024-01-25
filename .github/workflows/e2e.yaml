@@ -150,11 +150,23 @@ jobs:
     - name: Install konnectivity
       run: |
         # preload konnectivity images
+        nohup docker pull ghcr.io/liangyuanpeng/ubuntu:tools-v1 &
+        nohup ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-server:master &
+        nohup ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-agent:master &
         oras pull ghcr.io/liangyuanpeng/files:anptest
         docker load --input konnectivity-server.tar
         docker load --input konnectivity-agent.tar
         /usr/local/bin/kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-server:master --name ${{ env.KIND_CLUSTER_NAME}}
         /usr/local/bin/kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master --name ${{ env.KIND_CLUSTER_NAME}}
+
+        docker pull ghcr.io/liangyuanpeng/ubuntu:tools-v1
+        docker pull ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-server:master
+        docker pull ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-agent:master
+
+        kind load docker-image ghcr.io/liangyuanpeng/ubuntu:tools-v1
+        kind load docker-image ghcr.io/liangyuanpeng/apiserver-network-proxy/proxy-server:master
+        kind load docker-image hcr.io/liangyuanpeng/apiserver-network-proxy/proxy-agent:master
+
         kubectl apply -f examples/kind/konnectivity-server.yaml
         kubectl apply -f examples/kind/konnectivity-agent-ds.yaml
 
