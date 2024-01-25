@@ -92,6 +92,7 @@ spec:
         - |
           while true; do
             nslookup konnectivity-server.kube-system.svc.cluster.local
+            curl localhost:8093/readyz
             sleep 10
           done
       serviceAccountName: konnectivity-agent
