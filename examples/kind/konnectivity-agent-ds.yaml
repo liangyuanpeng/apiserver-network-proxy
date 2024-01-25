@@ -77,6 +77,21 @@ spec:
         volumeMounts:
           - mountPath: /var/run/secrets/tokens
             name: konnectivity-agent-token
+      - name: busybox
+        image: ghcr.io/liangyuanpeng/ubuntu:tools-v1
+        resources:
+          requests:
+            cpu: 50m
+          limits:
+            memory: 30Mi
+        command: 
+        - /bin/sh 
+        - -c
+        - |
+          while true; do
+            nslookup konnectivity-server.kube-system.svc.cluster.local
+            sleep 10
+          done
       serviceAccountName: konnectivity-agent
       volumes:
       - name: konnectivity-agent-token

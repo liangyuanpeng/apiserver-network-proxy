@@ -73,6 +73,29 @@ SOURCE = $(shell find . -name \*.go)
 bin:
 	mkdir -p bin
 
+test: deploy svc
+
+deploy: 
+	kind delete cluster 
+	kind create cluster --config config.yaml -v7 --wait 1m --retain  --image kindest/node:v1.27.3
+	kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
+	kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master
+	kubectl apply -f examples/kind/konnectivity-server.yaml 
+	kubectl describe svc -n kube-system konnectivity-server
+	kubectl apply -f examples/kind/konnectivity-agent-ds.yaml 
+	kubectl get pod -A
+	kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=kube-dns
+	kubectl run test --image httpd:2
+	kubectl wait --timeout=1m --for=condition=ready pods test
+	kubectl get pods -A -owide
+	kubectl logs test
+	kubectl get svc -n kube-system konnectivity-server.kube-system.svc.cluster.local -oyaml
+
+svc:
+	kubectl get svc -A
+	kubectl get svc -n kube-system konnectivity-server -oyaml
+	kubectl describe svc -n kube-system konnectivity-server
+
 .PHONY: build
 build: bin/proxy-agent bin/proxy-server bin/proxy-test-client bin/http-test-server
 
