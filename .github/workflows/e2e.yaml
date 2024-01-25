@@ -181,7 +181,7 @@ jobs:
         /usr/local/bin/kubectl run test --image httpd:2
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods test
         /usr/local/bin/kubectl get pods -A -owide
-        sleep 1m
+        sleep 30s
         /usr/local/bin/kubectl logs test
         
 
