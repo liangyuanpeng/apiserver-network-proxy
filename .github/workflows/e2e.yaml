@@ -233,5 +233,5 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: kind-logs-${{ env.JOB_NAME }}-${{ github.run_id }}
+        name: kind-logs-${{ env.JOB_NAME }}-${{ github.run_id }}-${{ matrix.k8sversion }}
         path: ./_artifacts/logs
