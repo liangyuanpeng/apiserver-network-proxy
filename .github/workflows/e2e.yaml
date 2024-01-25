@@ -182,7 +182,7 @@ jobs:
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods test
         /usr/local/bin/kubectl get pods -A -owide
         if [ ${{ matrix.ipFamily }} = "ipv4" ];then 
-          sleep 50s
+          echo "sleep 50s"
         fi
         /usr/local/bin/kubectl logs test
 
