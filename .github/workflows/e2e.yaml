@@ -2,10 +2,10 @@ name: e2e
 
 on:
   push:
-    branches:
-      - 'master'
-    tags:
-      - 'v*'
+    # branches:
+    #   - 'master'
+    # tags:
+    #   - 'v*'
   pull_request:
     branches: [ master ]
   workflow_dispatch:
@@ -51,8 +51,8 @@ jobs:
     name: e2e
     runs-on: ubuntu-20.04
     timeout-minutes: 100
-    needs:
-      - build
+    # needs:
+    #   - build
     strategy:
       fail-fast: false
       matrix:
@@ -135,18 +135,22 @@ jobs:
         # dump the kubeconfig for later
         /usr/local/bin/kind get kubeconfig --name ${{ env.KIND_CLUSTER_NAME}} > _artifacts/kubeconfig.conf
 
-    - uses: actions/download-artifact@v2
-      with:
-        name: konnectivity-server
+    # - uses: actions/download-artifact@v2
+    #   with:
+    #     name: konnectivity-server
 
-    - uses: actions/download-artifact@v2
+    # - uses: actions/download-artifact@v2
+    #   with:
+    #     name: konnectivity-agent
+
+    - uses: oras-project/setup-oras@v1
       with:
-        name: konnectivity-agent
+        version: 1.0.0
 
     - name: Install konnectivity
       run: |
         # preload konnectivity images
-        # oras pull ghcr.io/liangyuanpeng/files:anptest
+        oras pull ghcr.io/liangyuanpeng/files:anptest
         docker load --input konnectivity-server.tar
         docker load --input konnectivity-agent.tar
         /usr/local/bin/kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-server:master --name ${{ env.KIND_CLUSTER_NAME}}
