@@ -178,8 +178,7 @@ jobs:
         /usr/local/bin/kubectl get nodes -o wide
         /usr/local/bin/kubectl get pods -A
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=kube-dns
-        /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=konnectivity-server
-        /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=konnectivity-agent
+        
         # smoke test
         /usr/local/bin/kubectl run test --image httpd:2
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods test
@@ -187,6 +186,8 @@ jobs:
         if [ ${{ matrix.ipFamily }} = "ipv4" ];then 
           echo "sleep 50s"
         fi
+        /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=konnectivity-agent
+        /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=konnectivity-server
         /usr/local/bin/kubectl logs test
 
     - name: Workaround CoreDNS for IPv6 airgapped
