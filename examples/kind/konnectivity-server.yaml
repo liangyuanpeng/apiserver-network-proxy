@@ -122,6 +122,7 @@ spec:
         - -c
         - |
           while true; do
+            curl localhost:8092/readyz
             sleep 10
           done
       volumes:
