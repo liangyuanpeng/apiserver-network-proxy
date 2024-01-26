@@ -86,13 +86,6 @@ spec:
             path: /healthz
           initialDelaySeconds: 10
           timeoutSeconds: 60
-        readinessProbe:
-          httpGet:
-            scheme: HTTP
-            port: 8092
-            path: /readyz
-          initialDelaySeconds: 10
-          timeoutSeconds: 60
         ports:
         - name: serverport
           containerPort: 8090
