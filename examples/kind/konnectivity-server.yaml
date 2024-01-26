@@ -115,6 +115,15 @@ spec:
           readOnly: true
         - name: konnectivity-home
           mountPath: /etc/kubernetes/konnectivity-server
+      - name: busybox
+        image: ghcr.io/liangyuanpeng/ubuntu:tools-v1
+        command: 
+        - /bin/sh 
+        - -c
+        - |
+          while true; do
+            sleep 10
+          done
       volumes:
       - name: varlogkonnectivityserver
         hostPath:
