@@ -91,7 +91,7 @@ spec:
             scheme: HTTP
             port: 8092
             path: /readyz
-          initialDelaySeconds: 60
+          initialDelaySeconds: 10
           timeoutSeconds: 60
         ports:
         - name: serverport
