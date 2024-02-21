@@ -53,11 +53,17 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
       hostNetwork: true
-      #priority: 2000001000
-      # priorityClassName: system-node-critical
-      # securityContext:
-      #   seccompProfile:
-      #     type: RuntimeDefault
+      initContainers:
+      - name: change
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          chmod -R 777 /etc/kubernetes
+        volumeMounts:
+        - name: kubernetes
+          mountPath: /etc/kubernetes
       containers:
       - name: konnectivity-server-container
         image: gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
@@ -108,8 +114,8 @@ spec:
         - name: varlogkonnectivityserver
           mountPath: /var/log/konnectivity-server.log
           readOnly: false
-        - name: kubeconfig
-          mountPath: /etc/kubernetes/admin.conf
+        - name: kubernetes
+          mountPath: /etc/kubernetes
           readOnly: true
         - name: konnectivity-home
           mountPath: /etc/kubernetes/konnectivity-server
@@ -121,9 +127,9 @@ spec:
         hostPath:
           path: /var/log/konnectivity-server.log
           type: FileOrCreate
-      - name: kubeconfig
+      - name: kubernetes
         hostPath:
-          path: /etc/kubernetes/admin.conf
+          path: /etc/kubernetes
       - hostPath:
           path: /etc/kubernetes/pki
           type: DirectoryOrCreate
