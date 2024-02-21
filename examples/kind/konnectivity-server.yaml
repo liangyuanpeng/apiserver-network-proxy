@@ -109,7 +109,7 @@ spec:
           mountPath: /var/log/konnectivity-server.log
           readOnly: false
         - name: kubernetes
-          mountPath: /etc/kubernetes
+          mountPath: /etc/kubernetes/admin.conf
           readOnly: true
         - name: konnectivity-home
           mountPath: /etc/kubernetes/konnectivity-server
@@ -120,8 +120,7 @@ spec:
           type: FileOrCreate
       - name: kubernetes
         hostPath:
-          path: /etc/kubernetes
-          type: DirectoryOrCreate
+          path: /etc/kubernetes/admin.conf
       - name: konnectivity-home
         hostPath:
           path: /etc/kubernetes/konnectivity-server
