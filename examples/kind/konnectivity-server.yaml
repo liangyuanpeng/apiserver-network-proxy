@@ -116,6 +116,7 @@ spec:
       - name: kubernetes
         hostPath:
           path: /etc/kubernetes
+          type: DirectoryOrCreate
       - name: konnectivity-home
         hostPath:
           path: /etc/kubernetes/konnectivity-server
