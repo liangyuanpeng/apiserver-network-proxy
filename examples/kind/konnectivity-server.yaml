@@ -53,7 +53,7 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
       hostNetwork: true
-      priority: 2000001000
+      #priority: 2000001000
       # priorityClassName: system-node-critical
       securityContext:
         seccompProfile:
