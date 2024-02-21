@@ -53,6 +53,17 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
       hostNetwork: true
+      initContainers:
+      - name: busybox
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          chmod -R 777 /etc/kubernetes
+        volumeMounts:
+        - name: kubernetes
+          mountPath: /etc/kubernetes
       containers:
       - name: konnectivity-server-container
         image: gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
