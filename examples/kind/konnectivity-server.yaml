@@ -55,9 +55,9 @@ spec:
       hostNetwork: true
       #priority: 2000001000
       # priorityClassName: system-node-critical
-      securityContext:
-        seccompProfile:
-          type: RuntimeDefault
+      # securityContext:
+      #   seccompProfile:
+      #     type: RuntimeDefault
       containers:
       - name: konnectivity-server-container
         image: gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
