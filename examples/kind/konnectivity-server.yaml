@@ -53,6 +53,17 @@ spec:
       nodeSelector:
         node-role.kubernetes.io/control-plane: ""
       hostNetwork: true
+      initContainers:
+      - name: change
+        image: busybox
+        command:
+        - sh
+        - -c
+        - |
+          chmod -R 777 /etc/kubernetes
+        volumeMounts:
+        - name: kubernetes
+          mountPath: /etc/kubernetes
       containers:
       - name: konnectivity-server-container
         image: gcr.io/k8s-staging-kas-network-proxy/proxy-server:master
@@ -116,7 +127,6 @@ spec:
       - name: kubernetes
         hostPath:
           path: /etc/kubernetes
-          type: DirectoryOrCreate
       - name: konnectivity-home
         hostPath:
           path: /etc/kubernetes/konnectivity-server
