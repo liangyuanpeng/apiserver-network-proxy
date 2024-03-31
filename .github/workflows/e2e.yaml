@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'gh_artifact_v4'
     tags:
       - 'v*'
   pull_request:
