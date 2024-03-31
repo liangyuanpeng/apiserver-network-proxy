@@ -3,8 +3,9 @@ name: e2e
 on:
   push:
     branches:
-      - 'master'
-      - 'gh_artifact_v4_dev'
+    - 'master'
+    - 'gh_artifact_v4_dev'
+    - 'gh_artifact_v4'
     tags:
       - 'v*'
   pull_request:
