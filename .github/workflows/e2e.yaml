@@ -137,6 +137,20 @@ jobs:
             image: ${{ matrix.k8s }}
           - role: worker
             image: ${{ matrix.k8s }}
+          - role: worker
+            image: ${{ matrix.k8s }}
+          - role: worker
+            image: ${{ matrix.k8s }}
+          - role: worker
+            image: ${{ matrix.k8s }}
+          - role: worker
+            image: ${{ matrix.k8s }}
+          - role: worker
+            image: ${{ matrix.k8s }}
+          - role: worker
+            image: ${{ matrix.k8s }}
+          - role: worker
+            image: ${{ matrix.k8s }}
         EOF
 
         # dump the kubeconfig for later
