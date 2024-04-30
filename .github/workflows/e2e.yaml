@@ -52,7 +52,7 @@ jobs:
         name: konnectivity-agent
         path: _output/konnectivity-agent.tar
   e2e:
-    name: e2e
+    name: e2e_${{ matrix.k8s }}_${{ matrix.ipFamily }}_${{ matrix.server }}_${{ matrix.agent }}
     runs-on: ubuntu-20.04
     timeout-minutes: 100
     needs:
