@@ -62,12 +62,15 @@ jobs:
       matrix:
         ipFamily: ["ipv4", "ipv6", "dual"]
         k8s: [ v1.27.11, v1.28.7, v1.29.2 ]
-        include:
-        - versions: latest-latest
-        - versions: latest-0.29.2
-        - versions: latest-0.28.2
-        - versions: 0.29.2-latest
-        - versions: 0.28.2-latest
+        server: ["latest","0.29.2","0.28.2"]
+        agent: ["latest","0.29.2","0.28.2"]
+        # include:
+        # - versions: latest-latest
+        # - versions: latest-0.29.2
+        # - versions: latest-0.28.2
+        # - versions: 0.29.2-latest
+        # - versions: 0.28.2-latest
+
         #   agent: latest
         # - server: latest
         #   agent: 0.29.2
