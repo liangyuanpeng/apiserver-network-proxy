@@ -91,8 +91,8 @@ jobs:
         # - server: 0.28.2
         #   agent: latest
     env:
-      # JOB_NAME: "kindnetd-e2e-${{ matrix.k8s }}_${{ matrix.ipFamily }}_${{ matrix.server }}_${{ matrix.agent }}"
-      JOB_NAME: "kindnetd-e2e-${{ matrix.k8s }}_${{ matrix.ipFamily }}_${{ matrix.versions }}"
+      JOB_NAME: "kindnetd-e2e-${{ matrix.k8s }}_${{ matrix.ipFamily }}_${{ matrix.server }}_${{ matrix.agent }}"
+      # JOB_NAME: "kindnetd-e2e-${{ matrix.k8s }}_${{ matrix.ipFamily }}_${{ matrix.versions }}"
       IP_FAMILY: ${{ matrix.ipFamily }}
     steps:
     - name: Check out code
