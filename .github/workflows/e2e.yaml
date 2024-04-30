@@ -62,6 +62,17 @@ jobs:
       matrix:
         ipFamily: ["ipv4", "ipv6", "dual"]
         k8s: [ v1.27.11, v1.28.7, v1.29.2 ]
+        include:
+        - server: latest
+          agent: latest
+        - server: latest
+          agent: 0.29.2
+        - server: latest
+          agent: 0.28.2
+        - server: 0.29.2
+          agent: latest
+        - server: 0.28.2
+          agent: latest
     env:
       JOB_NAME: "kindnetd-e2e-${{ matrix.ipFamily }}"
       IP_FAMILY: ${{ matrix.ipFamily }}
