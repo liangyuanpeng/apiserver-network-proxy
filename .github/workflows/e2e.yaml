@@ -64,6 +64,8 @@ jobs:
         k8s: [ v1.27.11, v1.28.7, v1.29.2 ]
         # server: ["latest","0.29.2","0.28.2"]
         # agent: ["latest","0.29.2","0.28.2"]
+        server: ["latest"]
+        agent: ["latest"]
         include:
         # - versions: latest-latest
         # - versions: latest-0.29.2
