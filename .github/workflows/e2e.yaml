@@ -17,7 +17,7 @@ jobs:
     name: e2e_${{ matrix.k8s }}_${{ matrix.ipFamily }}_${{ matrix.server }}_${{ matrix.agent }}
     runs-on: ubuntu-20.04
     timeout-minutes: 100
-    uses: ./.github/workflows/e2e_template.yml
+    uses: ./.github/workflows/e2e_template.yaml
     strategy:
       fail-fast: false
       matrix:
@@ -58,7 +58,7 @@ jobs:
       matrix:
         server: ["0.29.2"]
         agent: ["latest","0.29.2","0.28.2"]
-    uses: ./.github/workflows/e2e_template.yml
+    uses: ./.github/workflows/e2e_template.yaml
     with:
       ref: master
       serverVersion: ${{ matrix.server }}
@@ -73,7 +73,7 @@ jobs:
       matrix:
         server: ["0.30.0"]
         agent: ["latest","0.29.2","0.28.2"]
-    uses: ./.github/workflows/e2e_template.yml
+    uses: ./.github/workflows/e2e_template.yaml
     with:
       ref: master
       serverVersion: ${{ matrix.server }}
