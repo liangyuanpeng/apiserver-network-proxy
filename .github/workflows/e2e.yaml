@@ -62,18 +62,12 @@ jobs:
       matrix:
         ipFamily: ["ipv4", "ipv6", "dual"]
         k8s: [ v1.27.11, v1.28.7, v1.29.2 ]
-        server: ["latest","0.29.2","0.28.2"]
-        agent: ["latest","0.29.2","0.28.2"]
+        server: ["latest","0.29.2"]
+        agent: ["latest","0.29.2"]
         # 有 exclue 的话有45个job  没有exclue的话有81个job 3*3*3*3
         exclude:
         - server: "0.29.2"
-          agent: "0.28.2"
-        - server: "0.29.2"
           agent: "0.29.2"
-        - server: "0.28.2"
-          agent: "0.29.2"
-        - server: "0.28.2"
-          agent: "0.28.2"
         # server: ["latest"]
         # agent: ["latest"]
         # include:
