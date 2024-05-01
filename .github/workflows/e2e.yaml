@@ -45,7 +45,7 @@ jobs:
         # - server: 0.28.2
         #   agent: latest
     with:
-      ref: master
+      ref: "master"
       serverVersion: ${{ matrix.server }}
       agentVersion: ${{ matrix.agent }}
 
@@ -60,7 +60,7 @@ jobs:
         agent: ["latest","0.29.2","0.28.2"]
     uses: ./.github/workflows/e2e_template.yaml
     with:
-      ref: master
+      ref: "master"
       serverVersion: ${{ matrix.server }}
       agentVersion: ${{ matrix.agent }}
 
@@ -75,6 +75,6 @@ jobs:
         agent: ["latest","0.29.2","0.28.2"]
     uses: ./.github/workflows/e2e_template.yaml
     with:
-      ref: master
+      ref: "master"
       serverVersion: ${{ matrix.server }}
       agentVersion: ${{ matrix.agent }}
