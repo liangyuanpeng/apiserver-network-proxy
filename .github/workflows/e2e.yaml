@@ -17,6 +17,7 @@ jobs:
     name: e2e_${{ matrix.k8s }}_${{ matrix.ipFamily }}_${{ matrix.server }}_${{ matrix.agent }}
     runs-on: ubuntu-20.04
     timeout-minutes: 100
+    uses: ./.github/workflows/e2e_template.yml
     strategy:
       fail-fast: false
       matrix:
@@ -43,11 +44,10 @@ jobs:
         #   agent: latest
         # - server: 0.28.2
         #   agent: latest
-      uses: ./.github/workflows/e2e_template.yml
-      with:
-        ref: master
-        serverVersion: ${{ matrix.server }}
-        agentVersion: ${{ matrix.agent }}
+    with:
+      ref: master
+      serverVersion: ${{ matrix.server }}
+      agentVersion: ${{ matrix.agent }}
 
   release-029-skew:
     name: release-029-skew
@@ -58,11 +58,11 @@ jobs:
       matrix:
         server: ["0.29.2"]
         agent: ["latest","0.29.2","0.28.2"]
-      uses: ./.github/workflows/e2e_template.yml
-      with:
-        ref: master
-        serverVersion: ${{ matrix.server }}
-        agentVersion: ${{ matrix.agent }}
+    uses: ./.github/workflows/e2e_template.yml
+    with:
+      ref: master
+      serverVersion: ${{ matrix.server }}
+      agentVersion: ${{ matrix.agent }}
 
   release-030-skew:
     name: release-030-skew
@@ -73,8 +73,8 @@ jobs:
       matrix:
         server: ["0.30.0"]
         agent: ["latest","0.29.2","0.28.2"]
-      uses: ./.github/workflows/e2e_template.yml
-      with:
-        ref: master
-        serverVersion: ${{ matrix.server }}
-        agentVersion: ${{ matrix.agent }}
+    uses: ./.github/workflows/e2e_template.yml
+    with:
+      ref: master
+      serverVersion: ${{ matrix.server }}
+      agentVersion: ${{ matrix.agent }}
