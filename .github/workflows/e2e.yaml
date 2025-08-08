@@ -156,21 +156,6 @@ jobs:
                 - op: add
                   path: /apiServer/certSANs/-
                   value: konnectivity-server.kube-system.svc.cluster.local
-            kubeadmConfigPatches:
-            - |
-              kind: ClusterConfiguration
-                extraVolumes:
-                - name: egress-selector-config-file
-                  hostPath: "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                  mountPath: "/etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml"
-                  readOnly: true
-                - name: konnectivity-server
-                  hostPath: "/etc/kubernetes/konnectivity-server"
-                  mountPath: "/etc/kubernetes/konnectivity-server"
-                  readOnly: true
-            extraMounts:
-            - hostPath: ./examples/kind/egress_selector_configuration.yaml
-              containerPath: /etc/kubernetes/konnectivity-server-config/egress_selector_configuration.yaml
           - role: worker
             image: ${{ matrix.k8s }}
           - role: worker
@@ -188,13 +173,13 @@ jobs:
       with:
         name: konnectivity-agent
 
-    - name: Install konnectivity
-      run: |
-        # preload konnectivity images
-        docker load --input konnectivity-server.tar
-        docker load --input konnectivity-agent.tar
-        /usr/local/bin/kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-server:master --name ${{ env.KIND_CLUSTER_NAME}}
-        /usr/local/bin/kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master --name ${{ env.KIND_CLUSTER_NAME}}
+    # - name: Install konnectivity
+    #   run: |
+    #     # preload konnectivity images
+    #     docker load --input konnectivity-server.tar
+    #     docker load --input konnectivity-agent.tar
+    #     /usr/local/bin/kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-server:master --name ${{ env.KIND_CLUSTER_NAME}}
+    #     /usr/local/bin/kind load docker-image gcr.io/k8s-staging-kas-network-proxy/proxy-agent:master --name ${{ env.KIND_CLUSTER_NAME}}
 
     - name: Get Cluster status
       run: |
@@ -207,7 +192,6 @@ jobs:
         /usr/local/bin/kubectl run test --image httpd:2
         /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods test
         /usr/local/bin/kubectl get pods -A -owide
-        /usr/local/bin/kubectl wait --timeout=1m --for=condition=ready pods --namespace=kube-system -l k8s-app=konnectivity-agent
         /usr/local/bin/kubectl logs test
         
 
